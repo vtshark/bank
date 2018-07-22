@@ -131,6 +131,9 @@ class DepositsProcessingController extends Controller
         //$currentTime = strtotime("30.07.2018");  // test
         $currentDay = (int)date("d", $currentTime);
         $depositDay = (int)date("d", $deposit->created_at);
+
+        // расчет депозита про совпадении дня месяца либо если
+        // депозит создан 31 числа
         if ($currentDay == $depositDay || $depositDay == 31) {
             $amountProfit = ($deposit->amount/100 * $deposit->rate);
             $deposit->amount += $amountProfit;
