@@ -34,8 +34,11 @@ class Clients extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['id_number'], 'trim'],
             [['id_number', 'name', 'surname', 'date_of_birth', 'date_of_birth_1'], 'required'],
-            [['id_number', 'gender_id'], 'integer'],
+            [['gender_id'], 'integer'],
+            [['id_number'], 'string'],
+            ['id_number', 'match', 'pattern' => '/^[0-9]{10}$/', 'message' => 'field must contain 10 digits'],
             [['name', 'surname'], 'string', 'max' => 255],
             [['id_number'], 'unique'],
             [['gender_id'], 'exist', 'skipOnError' => true, 'targetClass' => Genders::className(), 'targetAttribute' => ['gender_id' => 'id']],

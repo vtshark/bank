@@ -18,7 +18,7 @@ class SearchDeposits extends Deposits
     public function rules()
     {
         return [
-            [['id', 'client_id', 'created_at'], 'integer'],
+            [['id', 'client_id'], 'integer'],
             [['rate', 'amount'], 'number'],
             [['description'], 'safe'],
         ];

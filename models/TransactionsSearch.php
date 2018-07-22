@@ -20,7 +20,7 @@ class TransactionsSearch extends Transactions
     public function rules()
     {
         return [
-            [['id', 'deposit_id', 'transaction_type_id', 'created_at', 'month', 'year'], 'integer'],
+            [['id', 'deposit_id', 'transaction_type_id', 'month', 'year'], 'integer'],
             [['amount'], 'number'],
         ];
     }

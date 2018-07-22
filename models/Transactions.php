@@ -61,9 +61,9 @@ class Transactions extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'deposit_id' => 'Deposit ID',
-            'transaction_type_id' => 'Transaction Type ID',
-            'created_at' => 'Created At',
-            'amount' => 'Amount',
+            'transaction_type_id' => 'Тип тразакции',
+            'created_at' => 'Дата создания',
+            'amount' => 'Сумма',
         ];
     }
 

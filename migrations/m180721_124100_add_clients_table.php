@@ -19,7 +19,7 @@ class m180721_124100_add_clients_table extends Migration
             self::TABLE,
             [
                 'id' => $this->primaryKey(11),
-                'id_number' =>  $this->integer(11)->notNull()->unique(),
+                'id_number' =>  $this->char(10)->notNull()->unique(),
                 'name' =>  $this->string(255)->notNull(),
                 'surname' =>  $this->string(255)->notNull(),
                 'gender_id' =>  $this->integer(1)->null()->defaultValue(null),

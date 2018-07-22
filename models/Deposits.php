@@ -62,11 +62,11 @@ class Deposits extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'client_id' => 'Client ID',
-            'rate' => 'Rate',
-            'amount' => 'Amount',
-            'created_at' => 'Created At',
-            'description' => 'Description',
+            'client_id' => 'ID Клиента',
+            'rate' => 'Ставка',
+            'amount' => 'Сумма',
+            'created_at' => 'Дата создания',
+            'description' => 'Описание',
         ];
     }
 
