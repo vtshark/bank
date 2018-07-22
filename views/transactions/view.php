@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'deposit_id',
             'transaction_type_id',
-            'created_at',
+            'created_at:datetime',
             'amount',
         ],
     ]) ?>

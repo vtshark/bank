@@ -42,7 +42,7 @@ class DepositsProcessingController extends Controller
             $this->commissionHandler($deposit);
 
         }
-        echo "\n" . count($deposits) . " deposits processed.";
+        echo count($deposits) . " deposits processed.\n" ;
         return ExitCode::OK;
     }
 
