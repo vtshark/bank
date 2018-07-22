@@ -26,6 +26,11 @@ class DepositsProcessingController extends Controller
         parent::__construct($id, $module, $config);
     }
 
+    /**
+     * @return int
+     * @throws \Throwable
+     * @throws \yii\db\Exception
+     */
     public function actionIndex() {
 
         $deposits = Deposits::find()->all();
@@ -42,6 +47,8 @@ class DepositsProcessingController extends Controller
     }
 
     /**
+     * расчет комиссии
+     *
      * @param Deposits $deposit
      * @return bool|float|int
      * @throws \Throwable
@@ -50,6 +57,7 @@ class DepositsProcessingController extends Controller
     private function commissionHandler(Deposits $deposit) {
 
         $currentTime = $this->currentTime;
+        //$currentTime = strtotime("01.08.2018");   // test
         // если не первый день месяца коммисию не высчитываем
         if ((int)date("d", $currentTime) != 1) {
             return false;
@@ -61,7 +69,7 @@ class DepositsProcessingController extends Controller
         // проверка месяца создания депозита
         // если совпадает год создания депозита
         if (date("Y", $currentTime) == date("Y", $deposit->created_at)) {
-            $currentMonth = date("m", $currentTime);
+            $currentMonth = (int)date("m", $currentTime);
             $createMonth = (int)date("m", $deposit->created_at);
 
             if ($createMonth == $currentMonth - 1) {
@@ -110,6 +118,8 @@ class DepositsProcessingController extends Controller
     }
 
     /**
+     * расчет процентов
+     *
      * @param Deposits $deposit
      * @return float|int
      * @throws \Throwable
@@ -117,7 +127,11 @@ class DepositsProcessingController extends Controller
      */
     private function profitHandler(Deposits $deposit) {
         $amountProfit = 0;
-        if (date("d", $this->currentTime) == date("d", $deposit->created_at)) {
+        $currentTime = $this->currentTime;
+        //$currentTime = strtotime("30.07.2018");  // test
+        $currentDay = (int)date("d", $currentTime);
+        $depositDay = (int)date("d", $deposit->created_at);
+        if ($currentDay == $depositDay || $depositDay == 31) {
             $amountProfit = ($deposit->amount/100 * $deposit->rate);
             $deposit->amount += $amountProfit;
             $this->saveTransaction(self::TRANSACTION_PROFIT, $amountProfit, $deposit);
@@ -126,6 +140,8 @@ class DepositsProcessingController extends Controller
     }
 
     /**
+     * сохранение транзакции
+     *
      * @param $transaction_type
      * @param $amount
      * @param Deposits $deposit
